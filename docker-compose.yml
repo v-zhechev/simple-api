@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  mongo-db:
+    image: mongo:latest
+    container_name: mongo-db
+    volumes:
+      - mongodb-data:/data/db
+    ports:
+      - '27017:27017'
+
+  simple-api:
+    image: simpleapi:latest
+    container_name: api
+    environment:
+      - DB_URL=mongodb://mongo-db:27017/simple
+    ports:
+      - '8081:8080'
+
+volumes:
+  mongodb-data:
